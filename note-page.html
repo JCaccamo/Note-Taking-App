@@ -15,34 +15,20 @@
             <p>Note Taking App</p>
         </div>
         <div>
-            <a href="note-page.html">
-                <span class="icon">
-                    <i class="fa-solid fa-clipboard"></i>
-                </span>
-            </a>
-            <a href="register-page.html">
-                Register
-            </a>
-            <a href="login-page.html">
-                Login
-            </a>
+            <a href="note-page.html">Notes</a>
+            <a href="register-page.html">Register</a>
+            <a href="login-page.html">Login</a>
         </div>
-    </nav> <!-- end of nav -->
+    </nav><!-- end of nav -->
     <section>
-        <form action="">
-            <div class="notes">
+        <form id="note-form">
+            <div>
                 <label>Notes</label>
-                <textarea placeholder="Notes"></textarea>
+                <textarea placeholder="Notes" id="note"></textarea>
             </div>
-            <div class="button">
-                <button>
-                    Add Note
-                </button>
-                <button>
-                    Cancel
-                </button>
-            </div>
-        </form> <!-- end of form -->
-    </section> <!-- end of section -->
+            <input type="submit" value="Add Note" class="submit-btn">
+        </form><!-- end of form -->
+    </section><!-- end of section -->
+    <script src="main.js"></script>
 </body>
 </html>

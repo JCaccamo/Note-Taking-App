@@ -2,9 +2,9 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: Arial, Helvetica, sans-serif
+    font-family: Poppins;
 }
-
+/* all pages */
 body {
     height: 100%;
     background-color: white;
@@ -12,78 +12,97 @@ body {
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-    font-family: 'Poppins', sans-serif;
 }
-
+/* all pages */
 nav {
     background-image: linear-gradient(to bottom right, ghostwhite, lavender);
     position: fixed;
-    width: 100%;
     top: 0;
     left: 0;
+    width: 100%;
     padding: 20px;
     display: flex;
     flex-wrap: wrap;
     justify-content: start;
-    box-shadow: 0px 2px 5px lightgray;
+    box-shadow: 0px 2px 2px lavender;
 }
-
+/* all pages */
 .navbar-title {
-    padding-left: 20px;
-    padding-right: 20px;
+    padding-left: 80px;
+    padding-right: 80px;
 }
-
+/* all pages */
 a {
     padding: 20px;
     color: black;
     text-decoration: none;
 }
-
+/* all pages */
 a:hover {
     color: darkslategray;
 }
-
+/* all pages */
 section {
     max-width: 800px;
     margin: 100px auto 100px;
 }
-
-.email i {
+/* register and login page */
+div i {
     float: right;
     margin-top: -55px;
     margin-right: 20px;
     position: relative;
 }
-
-
-.password i {
-    float: right;
-    margin-top: -55px;
-    margin-right: 20px;
-    position: relative;
-}
-
-input {
+/* register page */
+#first-name {
     width: 100%;
     margin: 20px 0;
     padding: 20px 20px;
     border: 2px solid lavender;
     border-radius: 10px;
-    box-shadow: 0 2px 5px lightgrey;
+    box-shadow: 2px 2px 4px lightgrey;
 }
-
-textarea {
+/* register page */
+#last-name {
     width: 100%;
     margin: 20px 0;
     padding: 20px 20px;
     border: 2px solid lavender;
     border-radius: 10px;
-    box-shadow: 0 2px 5px lightgrey;
+    box-shadow: 2px 2px 4px lightgrey;
 }
-
-button {
-    margin: 5px 5px;
+/* register and login page */
+#email {
+    width: 100%;
+    margin: 20px 0;
     padding: 20px 20px;
+    border: 2px solid lavender;
+    border-radius: 10px;
+    box-shadow: 2px 2px 4px lightgrey;
+}
+/* register and login page */
+#password {
+    width: 100%;
+    margin: 20px 0;
+    padding: 20px 20px;
+    border: 2px solid lavender;
+    border-radius: 10px;
+    box-shadow: 2px 2px 4px lightgrey;
+}
+/* note page */
+#note {
+    width: 100%;
+    margin: 20px 0;
+    padding: 20px 20px;
+    border: 2px solid lavender;
+    border-radius: 10px;
+    box-shadow: 2px 2px 4px lightgrey;
+}
+/* all pages */
+.submit-btn {
+    margin: 20px 0;
+    padding: 20px 20px;
+    width: 20%;
     border: none;
     border-radius: 10px;
     background-color: #04AA6D;
@@ -91,7 +110,7 @@ button {
     text-decoration: none;
     cursor: pointer;
 }
-
-button:hover {
+/* all pages */
+.submit-btn:hover {
     color: darkslategray;
 }
