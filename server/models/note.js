@@ -1,15 +1,15 @@
 const notes = [
     {
         content: "hi",
-        userID: 12345
+        userID: 00001
     },
     {
-        content: "note",
-        userID: 55555
+        content: "get ready for work",
+        userID: 00002
     },
     {
-        content: "bye",
-        userID: 78942,
+        content: "sleep",
+        userID: 00003,
     }
 ]
 

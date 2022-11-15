@@ -1,5 +1,5 @@
-# Created by https://www.toptal.com/developers/gitignore/api/node,vuejs,dotenv,visualstudiocode
-# Edit at https://www.toptal.com/developers/gitignore?templates=node,vuejs,dotenv,visualstudiocode
+# Created by https://www.toptal.com/developers/gitignore/api/node,dotenv,visualstudiocode
+# Edit at https://www.toptal.com/developers/gitignore?templates=node,dotenv,visualstudiocode
 
 ### dotenv ###
 .env
@@ -162,17 +162,4 @@ dist
 .history
 .ionide
 
-# Support for Project snippet scope
-.vscode/*.code-snippets
-
-# Ignore code-workspaces
-*.code-workspace
-
-### Vuejs ###
-# Recommended template: Node.gitignore
-
-dist/
-npm-debug.log
-yarn-error.log
-
-# End of https://www.toptal.com/developers/gitignore/api/node,vuejs,dotenv,visualstudiocode
+# End of https://www.toptal.com/developers/gitignore/api/node,dotenv,visualstudiocode

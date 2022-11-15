@@ -8,12 +8,11 @@
 body {
     height: 100%;
     background-color: white;
-    background-image: url(Images/Background\ Image.jpg);
+    background-image: url(/public/images/background-image.jpg);
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
 }
-/* all pages */
 nav {
     background-image: linear-gradient(to bottom right, ghostwhite, lavender);
     position: fixed;
@@ -26,22 +25,18 @@ nav {
     justify-content: start;
     box-shadow: 0px 2px 2px lavender;
 }
-/* all pages */
 .navbar-title {
     padding-left: 80px;
     padding-right: 80px;
 }
-/* all pages */
 a {
     padding: 20px;
     color: black;
     text-decoration: none;
 }
-/* all pages */
 a:hover {
     color: darkslategray;
 }
-/* all pages */
 section {
     max-width: 800px;
     margin: 100px auto 100px;
@@ -62,7 +57,6 @@ div i {
     border-radius: 10px;
     box-shadow: 2px 2px 4px lightgrey;
 }
-/* register page */
 #last-name {
     width: 100%;
     margin: 20px 0;
@@ -80,7 +74,6 @@ div i {
     border-radius: 10px;
     box-shadow: 2px 2px 4px lightgrey;
 }
-/* register and login page */
 #password {
     width: 100%;
     margin: 20px 0;
@@ -110,7 +103,21 @@ div i {
     text-decoration: none;
     cursor: pointer;
 }
-/* all pages */
 .submit-btn:hover {
+    color: darkslategray;
+}
+/* note page */
+#btn-users {
+    margin: 20px 0;
+    padding: 20px 20px;
+    width: 20%;
+    border: none;
+    border-radius: 10px;
+    background-color: #04AA6D;
+    color: white;
+    text-decoration: none;
+    cursor: pointer;
+}
+#btn-users:hover {
     color: darkslategray;
 }
