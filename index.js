@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const app = express();
 
@@ -6,6 +7,7 @@ const noteRoutes = require("./server/routes/note");
 
 app.use(express.json());
 
+// CORS middleware
 app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
@@ -17,7 +19,7 @@ app.use("/users", userRoutes);
 app.use("/notes", noteRoutes);
 
 app.get('*', function (req, res) {
-    res.sendFile(path.resolve(__dirname, 'public', 'note-page.html'));
+    res.sendFile(path.resolve(__dirname, 'public', 'login-page.html'));
 })
 
 const PORT = process.env.PORT || 3000;

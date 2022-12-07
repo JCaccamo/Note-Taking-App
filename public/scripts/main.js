@@ -1,19 +1,15 @@
 // create USER object
 class USER {
-    constructor(id, username, firstname, lastname, email, password) {
-        this.userID = id;
-        this.username = username;
+    constructor(id, firstname, lastname, email, password) {
+        this.userId = id;
         this.firstname = firstname;
         this.lastname = lastname;
         this.email = email;
         this.password = password;
     }
     // get methods
-    getUserID() {
-        return this.userID
-    }
-    getUsername() {
-        return this.username;
+    getUserId() {
+        return this.userId
     }
     getFirstname() {
         return this.firstname;
@@ -28,11 +24,8 @@ class USER {
         return this.password;
     }
     // set methods
-    setUserID(id) {
-        this.userID = id;
-    }
-    setUsername(username) {
-        this.username = username;
+    setUserId(id) {
+        this.userId = id;
     }
     setFirstname(firstname) {
         this.firstname = firstname;
@@ -74,7 +67,7 @@ function registerUser(e) {
 }
 
 // handles login form
-const loginForm = document.getElementById("login-form");
+let loginForm = document.getElementById("login-form");
 
 if(loginForm) loginForm.addEventListener('submit', loginUser);
 
@@ -82,31 +75,33 @@ function loginUser(e) {
     e.preventDefault();
     let email = document.getElementById("email").value;
     let password = document.getElementById("password").value;
-    const user = new USER(email, password);
-    user.setEmail(email);
-    user.setPassword(password);
-    console.log(user);
-    loginForm.innerHTML += `
-        <p>Login Sucessful!</p>
-    `
+    let user = new USER(email, password);
+    fetchData("/users/login", user, "POST")
+    .then((data) => {
+        console.log(data);
+        window.location.href = "note-page.html";
+    })
+    .catch((err) => {
+        console.log(`Error: ${err.message}`);
+    })
 }
 
 // create NOTE object
 class NOTE {
     constructor(id, content) {
-        this.noteID = id;
+        this.noteId = id;
         this.content = content;
     }
     // get methods
-    getNoteID() {
-        return this.noteID
+    getNoteId() {
+        return this.noteId
     }
     getContent() {
         return this.content;
     }
     // set methods
-    setNoteID(id) {
-        this.noteID = id;
+    setNoteId(id) {
+        this.noteId = id;
     }
     setContent(content) {
         this.content = content;
