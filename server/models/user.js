@@ -1,82 +1,82 @@
 const con = require("./db_connect");
 
-async function createUserTable() {
+async function createTable() {
     let sql = `CREATE TABLE IF NOT EXISTS users (
-        user_id INT NOT NULL AUTO_INCREMENT,
+        userID INT NOT NULL AUTO_INCREMENT,
+        firstname VARCHAR(255) NOT NULL,
+        lastname VARCHAR(255) NOT NULL,
         email VARCHAR(255) NOT NULL UNIQUE,
-        user_password VARCHAR(255) NOT NULL,
-        CONSTRAINT user_pk PRIMARY KEY(user_id)
+        password VARCHAR(255) NOT NULL,
+        CONSTRAINT userPK PRIMARY KEY(userID)
     );`
     await con.query(sql);
 }
-createUserTable();
+createTable();
 
-let getUsers = async () => {
+// Grabbing all users in the database
+async function getAllUsers() {
     const sql = `SELECT * FROM users;`;
-    return await con.query(sql);
-};
-getUsers();
+    let users = await con.query(sql);
+    console.log(users)
+}
 
+// Create User
+async function register(user) {
+    let cUser = await getUser(user);
+    if(cUser.length > 0) throw Error("Email already in use");
+
+    const sql = `INSERT INTO users (firstname, lastname, email, password)
+        VALUES ("${user.firstname}", "${user.lastname}", "${user.email}", "${user.password}");
+    `
+    await con.query(sql);
+    return await login(user);
+}
+
+// Read User
+async function login(user) {
+    let cUser = await getUser(user);
+
+    if(!cUser[0]) throw Error("Email not found");
+    if(cUser[0].password !== user.password) throw Error("Password incorrect");
+
+    return cUser[0];
+}
+
+// Update User
+async function editUser(user) {
+    let sql = `UPDATE users 
+        SET email = "${user.email}"
+        WHERE userID = ${user.userID}
+    `;
+
+    await con.query(sql);
+    let updatedUser = await getUser(user);
+    return updatedUser[0];
+}
+
+// Delete User
+async function deleteUser(user) {
+    let sql = `DELETE FROM users
+        WHERE userID = ${user.userID}
+    `
+    await con.query(sql);
+}
+
+// Useful Functions
 async function getUser(user) {
     let sql;
-    if(user.userId) {
-        sql = `SELECT * FROM users
-            WHERE user_id = ${user.userId};
+    if(user.userID) {
+        sql = `
+            SELECT * FROM users
+            WHERE userID = ${user.userID};
         `
     } else {
-        sql = `SELECT * FROM users
+        sql = `
+            SELECT * FROM users
             WHERE email = "${user.email}";
         `
     }
     return await con.query(sql);
 }
 
-async function userExists(email) {
-    const sql = `SELECT * FROM users
-        WHERE email = "${email}";
-    `;
-    let u = await con.query(sql);
-    console.log(u);
-    return u;
-}
-
-// Create User
-async function register(user) {
-    const u = userExists(user.email);
-    if(u.length>0) throw Error('User with this email exists');
-    const sql = `INSERT INTO users (email, user_password)
-        VALUES ( "${user.email}", "${user.password}");
-    `;
-    const insert = await con.query(sql);
-    const newUser = await getUser(user);
-    return newUser[0];
-}
-
-// Read User
-async function login(email, password) {
-    const user = await userExists(email);
-    if(!user[0]) throw Error("User not found");
-    if(user[0].user_password !== password) throw Error("Incorrect password");
-    return user[0];
-}
-
-// Update User
-async function editUser(user) {
-    const sql = `UPDATE users SET
-        email = "${user.email}"
-        WHERE user_id = ${user.userId};
-    `;
-    const update = await con.query(sql);
-    const newUser = await getUser(user);
-    return newUser[0];
-}
-
-// Delete User
-async function deleteUser(userId) {
-    const sql = `DELETE FROM users
-        WHERE user_id = ${userId};
-    `;
-    await con.query(sql);
-}
-
-module.exports = { getUsers, register, login, editUser, deleteUser };
+module.exports = { getAllUsers, register, login, editUser, deleteUser };

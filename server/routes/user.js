@@ -5,48 +5,46 @@ const router = express.Router();
 router
     .get('/', async (req, res) => {
         try {
-            const users = await User.getUsers();
+            const users = await User.getAllUsers();
             res.send(users);
-        } catch(error) {
-            res.status(401).send({message: error.message});
+        } catch(err) {
+            res.status(401).send({message: err.message});
         }
     })
 
     .post('/register', async (req, res) => {
         try {
-            const user = await User.register(req.body);
-            console.log(user);
-            res.send({...user, password: undefined});
-        } catch(error) {
-            res.status(401).send({message: error.message});
+            let user = await User.register(req.body);
+            res.send({...user, password: undefined})
+        } catch(err) {
+            res.status(401).send({message: err.message});
         }
     })
 
     .post('/login', async (req, res) => {
         try {
-            const user = await User.login(req.body);
-            console.log(user);
-            res.send({...user, password: undefined});
-        } catch(error) {
-            res.status(401).send({message: error.message});
+            let user = await User.login(req.body);
+            res.send({...user, password: undefined})
+        } catch(err) {
+            res.status(401).send({message: err.message});
         }
     })
 
     .put('/edit', async (req, res) => {
         try {
-            const user = await User.editUser(req.body);
-            res.send({...user, password: undefined});
-        } catch(error) {
-            res.status(401).send({message: error.message});
+            let user = await User.editUser(req.body);
+            res.send({...user, password: undefined})
+        } catch(err) {
+            res.status(401).send({message: err.message});
         }
     })
 
     .delete('/delete', async (req, res) => {
         try {
             User.deleteUser(req.body.userId);
-            res.send({success: "We'll Miss You..."});
-        } catch(error) {
-            res.status(401).send({message: error.message});
+            res.send({success: "We'll Miss You..."})
+        } catch(err) {
+            res.status(401).send({message: err.message});
         }
     })
 

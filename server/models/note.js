@@ -1,70 +1,77 @@
 const con = require("./db_connect");
 
-async function createNoteTable() {
+async function createTable() {
     let sql = `CREATE TABLE IF NOT EXISTS notes (
-        note_id INT NOT NULL AUTO_INCREMENT,
-        content VARCHAR(5000) NOT NULL,
-        user_id INT NOT NULL,
-        CONSTRAINT note_pk PRIMARY KEY(note_id),
-        CONSTRAINT note_fk FOREIGN KEY(note_id) REFERENCES users(user_id)
+        noteID INT NOT NULL AUTO_INCREMENT,
+        noteContent VARCHAR(5000) NOT NULL,
+        userID INT NOT NULL,
+        CONSTRAINT notePK PRIMARY KEY(noteID),
+        CONSTRAINT noteFK FOREIGN KEY(noteID) references users(userID)
     );`
     await con.query(sql);
 }
-createNoteTable();
+createTable();
 
-let getNotes = async () => {
+// Grabbing all notes in the database
+async function getAllNotes() {
     const sql = `SELECT * FROM notes;`;
-    return await con.query(sql);
-};
-getNotes();
+    let notes = await con.query(sql);
+    console.log(notes)
+}
 
+// Create Note
+async function createNote(note) {
+    const sql = `INSERT INTO notes (noteContent)
+        VALUES ("${note.noteContent}");
+    `
+    await con.query(sql);
+    return await readNote(note);
+}
+
+// Read Note
+async function readNote(note) {
+    let cNote = await getNote(note);
+
+    if(!cNote[0]) throw Error("Note not found");
+
+    return cNote[0];
+}
+
+// Update Note
+async function editNote(note) {
+    let sql = `UPDATE notes 
+        SET noteContent = "${note.noteContent}"
+        WHERE noteID = ${note.noteID}
+    `;
+
+    await con.query(sql);
+    let updatedNote = await getNote(note);
+    return updatedNote[0];
+}
+
+// Delete Note
+async function deleteNote(note) {
+    let sql = `DELETE FROM notes
+        WHERE noteID = ${note.noteID}
+    `
+    await con.query(sql);
+}
+
+// Useful Functions
 async function getNote(note) {
     let sql;
-    if(note.noteId) {
-        sql = `SELECT * FROM notes
-            WHERE note_id = ${note.noteId};
+    if(note.noteID) {
+        sql = `
+            SELECT * FROM notes
+            WHERE noteID = ${note.noteID};
         `
     } else {
-        sql = `SELECT * FROM notes
-            WHERE content = "${note.content}";
+        sql = `
+            SELECT * FROM notes
+            WHERE noteContent = "${note.noteContent}";
         `
     }
     return await con.query(sql);
 }
 
-async function noteExists(noteId) {
-    const sql = `SELECT * FROM notes
-        WHERE note_id = ${noteId};
-    `;
-    let u = await con.query(sql);
-    console.log(u);
-    return u;
-}
-
-// Read Note
-async function readNote(noteId) {
-    const note = await noteExists(noteId);
-    if(!note[0]) throw Error("Note not found");
-    return note[0];
-}
-
-// Update User
-async function editNote(note) {
-    const sql = `UPDATE notes SET
-        content = "${note.content}"
-        WHERE note_id = ${note.noteId};
-    `;
-    const update = await con.query(sql);
-    const newNote = await getNote(note);
-    return newNote[0];
-}
-
-// Delete User
-async function deleteNote(noteId) {
-    const sql = `DELETE FROM notes
-        WHERE note_id = ${noteId};
-    `;
-    await con.query(sql);
-}
-
-module.exports = { getNotes, readNote, editNote, deleteNote };
+module.exports = { getAllNotes, createNote, readNote, editNote, deleteNote };

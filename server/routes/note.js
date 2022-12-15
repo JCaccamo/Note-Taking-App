@@ -5,38 +5,46 @@ const router = express.Router();
 router
     .get('/', async (req, res) => {
         try {
-            const notes = await Note.getNotes();
+            const notes = await Note.getAllNotes();
             res.send(notes);
         } catch(error) {
             res.status(401).send({message: error.message});
         }
     })
 
+    .post('/create', async (req, res) => {
+        try {
+            let note = await Note.createNote(req.body);
+            res.send({...note})
+        } catch(err) {
+            res.status(401).send({message: err.message});
+        }
+    })
+
     .post('/read', async (req, res) => {
         try {
-            const note = await Note.login(req.body);
-            console.log(note);
-            res.send({...note, content});
-        } catch(error) {
-            res.status(401).send({message: error.message});
+            let note = await Note.readNote(req.body);
+            res.send({...note})
+        } catch(err) {
+            res.status(401).send({message: err.message});
         }
     })
 
     .put('/edit', async (req, res) => {
         try {
-            const note = await Note.editNote(req.body);
-            res.send({...note, content});
-        } catch(error) {
-            res.status(401).send({message: error.message});
+            let note = await Note.editNote(req.body);
+            res.send({...note})
+        } catch(err) {
+            res.status(401).send({message: err.message});
         }
     })
 
     .delete('/delete', async (req, res) => {
         try {
-            User.deleteNote(req.body.noteId);
-            res.send({success: "Note Deleted"});
-        } catch(error) {
-            res.status(401).send({message: error.message});
+            Note.deleteNote(req.body.noteID);
+            res.send({success: "Note Deleted"})
+        } catch(err) {
+            res.status(401).send({message: err.message});
         }
     })
 
