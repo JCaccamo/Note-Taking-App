@@ -22,15 +22,16 @@
     </nav><!-- end of nav -->
     <section>
         <form id="login-form">
+            <p class="error"></p><br>
             <div>
-                <label>Email</label>
+                <label for="email">Email</label>
                 <input type="email" placeholder="Email" id="email" required>
                     <span>
                         <i class="fa-solid fa-envelope"></i>
                     </span>
             </div>
             <div>
-                <label>Password</label>
+                <label for="password">Password</label>
                 <input type="password" placeholder="Password" id="password" required>
                     <span>
                         <i class="fa-solid fa-lock"></i>
@@ -39,6 +40,7 @@
             <input type="submit" value="Login" class="submit-btn">
         </form><!-- end of form -->
     </section><!-- end of section -->
-    <script src="/public/scripts/main.js"></script>
+    <script type="module" src="scripts/main.js"></script>
+    <script type="module" src="scripts/user.js"></script>
 </body>
 </html>

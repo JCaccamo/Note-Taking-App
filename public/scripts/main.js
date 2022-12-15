@@ -1,141 +1,31 @@
-// create USER object
-class USER {
-    constructor(id, firstname, lastname, email, password) {
-        this.userId = id;
-        this.firstname = firstname;
-        this.lastname = lastname;
-        this.email = email;
-        this.password = password;
-    }
-    // get methods
-    getUserId() {
-        return this.userId
-    }
-    getFirstname() {
-        return this.firstname;
-    }
-    getLastname() {
-        return this.lastname;
-    }
-    getEmail() {
-        return this.email;
-    }
-    getPassword() {
-        return this.password;
-    }
-    // set methods
-    setUserId(id) {
-        this.userId = id;
-    }
-    setFirstname(firstname) {
-        this.firstname = firstname;
-    }
-    setLastname(lastname) {
-        this.lastname = lastname;
-    }
-    setEmail(email) {
-        this.email = email;
-    }
-    setPassword(password) {
-        this.password = password;
-    }
-}
+let nav = document.querySelector('nav');
 
-// handles registration form
-const registerForm = document.getElementById("register-form");
-
-if(registerForm) registerForm.addEventListener('submit', registerUser);
-
-function registerUser(e) {
-    e.preventDefault();
-    let firstname = document.getElementById("first-name").value;
-    let lastname = document.getElementById("last-name").value;
-    let email = document.getElementById("email").value;
-    let password = document.getElementById("password").value;
-    const user = new USER(firstname, lastname, email, password);
-    user.setFirstname(firstname);
-    user.setLastname(lastname);
-    user.setEmail(email);
-    user.setPassword(password);
-    console.log(`First Name: ${user.getFirstname()}`);
-    console.log(`Last Name: ${user.getLastname()}`);
-    console.log(`Email: ${user.getEmail()}`);
-    console.log(`Password: ${user.getPassword()}`);
-    registerForm.innerHTML += `
-        <p>Registration Sucessful!</p>
+if(getCurrentUser()) {
+    nav.innerHTML = `
+    <div class="navbar-title">
+        <p>Note Taking App</p>
+    </div>
+    <div>
+        <a href="note-page.html">Notes</a>
+        <a href="profile-page.html">Profile</a>
+        <a id="logout-btn">Logout</a>
+    </div>
+    `
+} else {
+    nav.innerHTML = `
+    <div class="navbar-title">
+        <p>Note Taking App</p>
+    </div>
+    <div>
+        <a href="note-page.html">Notes</a>
+        <a href="register-page.html">Register</a>
+        <a href="login-page.html">Login</a>
+    </div>
     `
 }
 
-// handles login form
-let loginForm = document.getElementById("login-form");
-
-if(loginForm) loginForm.addEventListener('submit', loginUser);
-
-function loginUser(e) {
-    e.preventDefault();
-    let email = document.getElementById("email").value;
-    let password = document.getElementById("password").value;
-    let user = new USER(email, password);
-    fetchData("/users/login", user, "POST")
-    .then((data) => {
-        console.log(data);
-        window.location.href = "note-page.html";
-    })
-    .catch((err) => {
-        console.log(`Error: ${err.message}`);
-    })
-}
-
-// create NOTE object
-class NOTE {
-    constructor(id, content) {
-        this.noteId = id;
-        this.content = content;
-    }
-    // get methods
-    getNoteId() {
-        return this.noteId
-    }
-    getContent() {
-        return this.content;
-    }
-    // set methods
-    setNoteId(id) {
-        this.noteId = id;
-    }
-    setContent(content) {
-        this.content = content;
-    }
-}
-
-// handles note form
-const noteForm = document.getElementById("note-form");
-
-if(noteForm) noteForm.addEventListener('submit', addNote);
-
-function addNote(e) {
-    e.preventDefault();
-    let content = document.getElementById("note").value;
-    const note = new NOTE(content);
-    note.setContent(content);
-    console.log(`Note Content: ${note.getContent()}`);
-    noteForm.innerHTML += `
-        <p>Note Added!</p>
-    `
-}
-
-// getUsers button 
-document.getElementById("btn-users").addEventListener('click', getUsers);
-
-function getUsers() {
-    fetch("http://localhost:3000/users/")
-    .then((res)=> res.json())
-    .then((data) => console.log(data))
-    .catch((err)=> console.log(err))
-}
-
-// fetch method implementation
-async function fetchData(route = '', data = {}, methodType) {
+// Fetch method implementation:
+export async function fetchData(route = '', data = {}, methodType) {
     const response = await fetch(`http://localhost:3000${route}`, {
         method: methodType, // *GET, POST, PUT, DELETE, etc.
         mode: 'cors', // no-cors, *cors, same-origin
@@ -153,4 +43,25 @@ async function fetchData(route = '', data = {}, methodType) {
     } else {
         throw await response.json();
     }
+}
+
+// logout event listener
+let logout = document.getElementById("logout-btn");
+if(logout) logout.addEventListener('click', removeCurrentUser)
+
+// stateful mechanism for user
+// function for getting the current user
+export function getCurrentUser() {
+    return JSON.parse(localStorage.getItem('user'));
+}
+
+// function for logging in a user
+export function setCurrentUser(user) {
+    localStorage.setItem('user', JSON.stringify(user));
+}
+
+// function for logging out the current user
+export function removeCurrentUser() {
+    localStorage.removeItem('user');
+    window.location.href = "login-page.html";
 }

@@ -10,35 +10,27 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
 </head>
 <body>
-    <nav>
-        <div class="navbar-title">
-            <p>Note Taking App</p>
-        </div>
-        <div>
-            <a href="note-page.html">Notes</a>
-            <a href="register-page.html">Register</a>
-            <a href="login-page.html">Login</a>
-        </div>
-    </nav><!-- end of nav -->
+    <nav></nav><!-- end of nav -->
     <section>
         <form id="register-form">
+            <p class="error"></p><br>
             <div>
-                <label>First Name</label>
+                <label for="first-name">First Name</label>
                 <input type="text" placeholder="First Name" id="first-name" required>
             </div>
             <div>
-                <label>Last Name</label>
+                <label for="last-name">Last Name</label>
                 <input type="text" placeholder="Last Name" id="last-name" required>
             </div>
             <div>
-                <label>Email</label>
+                <label for="email">Email</label>
                 <input type="email" placeholder="Email" id="email" required>
                 <span>
                     <i class="fa-solid fa-envelope"></i>
                 </span>
             </div>
             <div>
-                <label>Password</label>
+                <label for="password">Password</label>
                 <input type="password" placeholder="Password" id="password" required>
                 <span>
                     <i class="fa-solid fa-lock"></i>
@@ -47,6 +39,7 @@
             <input type="submit" value="Register" class="submit-btn">
         </form><!-- end of form -->
     </section><!-- end of section -->
-    <script src="/public/scripts/main.js"></script>
+    <script type="module" src="scripts/main.js"></script>
+    <script type="module" src="scripts/user.js"></script>
 </body>
 </html>
